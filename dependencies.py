@@ -1,16 +1,18 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-from keys import db_user_tab_key,db_password_tab_key
+
 import datetime
 from deta import Deta
 import re 
 import pandas as pd
 import random
+from dotenv import load_dotenv
+import os 
 
+load_dotenv()
 
-
-DETA_KEY = db_user_tab_key
-DETA_PASS_KEY = db_password_tab_key
+DETA_KEY = os.getenv("db_user_tab_key")
+DETA_PASS_KEY = os.getenv("db_password_tab_key")
 
 deta = Deta(DETA_KEY)
 deta_pass = Deta(DETA_PASS_KEY)

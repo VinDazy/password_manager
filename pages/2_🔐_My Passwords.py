@@ -3,6 +3,9 @@ from keys import db_password_tab_key
 from deta import Deta
 import pandas as pd 
 import pickle
+from dotenv import load_dotenv
+import os 
+load_dotenv()
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
 st.title("User Passwords")
@@ -20,7 +23,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-DETA_PASS_KEY = db_password_tab_key
+DETA_PASS_KEY = os.getenv("db_password_tab_key")
 
 deta_pass = Deta(DETA_PASS_KEY)
 
