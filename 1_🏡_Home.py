@@ -52,7 +52,7 @@ def login():
             for index in range(len(emails)):
                 credentials['usernames'][usernames[index]] = {'name': emails[index], 'password': passwords[index]}
 
-            Authenticator = stauth.Authenticate(credentials, cookie_name='Streamlit', key='abcdef', cookie_expiry_days=1)
+            Authenticator = stauth.Authenticate(credentials, cookie_name='Streamlit', key='abcdef', cookie_expiry_days=0)
             email, authentication_status,username = Authenticator.login(':green[Login]', 'main')
             info, info1 = st.columns(2)
 
