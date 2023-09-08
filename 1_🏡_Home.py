@@ -57,6 +57,7 @@ def login():
             info, info1 = st.columns(2)
 
             if not authentication_status:
+                df.drop(df.index, inplace=True)
                 sign_up()
 
             if username:
