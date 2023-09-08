@@ -6,13 +6,9 @@ from deta import Deta
 import re 
 import pandas as pd
 import random
-from dotenv import load_dotenv
-import os 
 
-load_dotenv()
-
-DETA_KEY = os.getenv("db_user_tab_key")
-DETA_PASS_KEY = os.getenv("db_password_tab_key")
+DETA_KEY = st.secrets["db_user_tab_key"]
+DETA_PASS_KEY = st.secrets["db_password_tab_key"]
 
 deta = Deta(DETA_KEY)
 deta_pass = Deta(DETA_PASS_KEY)
