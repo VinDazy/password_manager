@@ -103,5 +103,5 @@ email = return_email()
 file_path = "email.pickle"
 
 # Write the email data to the pickle file
-with open(file_path, 'wb', encoding='utf-8') as file:
+with open(file_path, 'wb') as file:
     pickle.dump(email, file)

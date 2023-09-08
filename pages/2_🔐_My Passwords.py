@@ -31,7 +31,7 @@ try :
 
     try:
         # Open the pickle file in binary read mode
-        with open(file_path, 'rb', encoding='utf-8') as file:
+        with open(file_path, 'rb') as file:
             # Load the data from the pickle file
             email = pickle.load(file)
             print(f"Read email from pickle file: {email}")
