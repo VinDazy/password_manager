@@ -2,7 +2,7 @@ from dependencies import *
 import pickle
 import hashlib
 import os
-
+import base64
 
 
 
@@ -75,7 +75,8 @@ def login():
                             password=data['Password']
                             password_bytes = password.encode('utf-8')
                             encrypted_password = cipher_suite.encrypt(password_bytes)
-                            insert_password(password_id=create_unique_code(data['Password']),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password)
+                            encrypted_password_base64 = base64.b64encode(encrypted_password).decode('utf-8')
+                            insert_password(password_id=create_unique_code(password),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password_base64)
                             
                     elif not authentication_status:
                         with info:
