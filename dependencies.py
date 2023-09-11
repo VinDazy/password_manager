@@ -11,7 +11,6 @@ from cryptography.fernet import Fernet
 
 # Generate a key and create the Fernet cipher suite
 key = Fernet.generate_key()
-cipher_suite = Fernet(key)
 
 
 

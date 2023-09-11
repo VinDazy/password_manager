@@ -78,8 +78,7 @@ try :
 
     fetch_user_passwords(email=email)
 except Exception as e :
-    st.error("Please Log in first")
-    st.write("key from passwords : ",key)
+    st.error("An error occured, Please try again Later",icon="🚨")
     st.write(e)
 
 
