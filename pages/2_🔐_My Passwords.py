@@ -78,6 +78,7 @@ try :
     fetch_user_passwords(email=email)
 except Exception as e :
     st.error("Please Log in first")
+    st.write("key from passwords : ",key)
     st.write(e)
 
-print("key from passwords : ",key)
+
