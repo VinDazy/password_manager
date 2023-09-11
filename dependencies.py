@@ -220,7 +220,6 @@ def display():
         if not df.empty:
             st.subheader("Generated Passwords :")
             st.write(df)
-        st.write("key from dependencies : ",key)
     return data
 
 
