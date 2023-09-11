@@ -29,6 +29,7 @@ db_pass = deta_pass.Base('password')
 
 try :
     file_path = "email.pickle"
+    cipher_suite = Fernet(key)
 
     try:
         # Open the pickle file in binary read mode

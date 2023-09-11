@@ -71,6 +71,7 @@ def login():
                         data=display()
                         global global_email
                         global_email=email
+                        cipher_suite = Fernet(key)
                         if data is not None:
                             password=data['Password']
                             password_bytes = password.encode('utf-8')
