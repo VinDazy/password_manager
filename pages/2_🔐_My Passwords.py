@@ -2,7 +2,7 @@ import streamlit as st
 from deta import Deta
 import pandas as pd 
 import pickle
-from dependencies import *
+from dependencies import Fernet,key 
 import base64
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
@@ -26,10 +26,11 @@ DETA_PASS_KEY = st.secrets["db_password_tab_key"]
 deta_pass = Deta(DETA_PASS_KEY)
 
 db_pass = deta_pass.Base('password')
+cipher_suite = Fernet(key)
 
 try :
     file_path = "email.pickle"
-    cipher_suite = Fernet(key)
+    
 
     try:
         # Open the pickle file in binary read mode

@@ -103,12 +103,12 @@ print("(home)email is :",return_email())
 ###############################################
 
 
-# Your email data
+
 email = return_email()
 
-# Specify the file path where you want to save the pickle file
+
+
 file_path = "email.pickle"
 
-# Write the email data to the pickle file
 with open(file_path, 'wb') as file:
     pickle.dump(email, file)
