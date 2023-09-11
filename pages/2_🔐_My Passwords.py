@@ -76,7 +76,8 @@ try :
             st.write("No passwords found for this user.")
 
     fetch_user_passwords(email=email)
-except:
+except Exception as e :
     st.error("Please Log in first")
+    st.write(e)
 
 
