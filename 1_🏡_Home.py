@@ -5,6 +5,7 @@ import os
 
 
 
+
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
 st.title("Password Manager")
 
@@ -71,7 +72,10 @@ def login():
                         global global_email
                         global_email=email
                         if data is not None:
-                            insert_password(password_id=create_unique_code(data['Password']),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=data['Password'])
+                            password=data['Password']
+                            password_bytes = password.encode('utf-8')
+                            encrypted_password = cipher_suite.encrypt(password_bytes)
+                            insert_password(password_id=create_unique_code(data['Password']),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password)
                             
                     elif not authentication_status:
                         with info:

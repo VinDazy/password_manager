@@ -2,6 +2,8 @@ import streamlit as st
 from deta import Deta
 import pandas as pd 
 import pickle
+from dependencies import *
+
 
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
@@ -49,10 +51,13 @@ try :
 
         for user in users.items:
             if user['User_Email'] == email:
+                encrypted_password=user['Password']
+                decrypted_password_bytes = cipher_suite.decrypt(encrypted_password)
+                decrypted_password = decrypted_password_bytes.decode('utf-8')
                 new_data = {
                     'Password_id': user['Password_id'],
                     'User_Email': user['User_Email'],
-                    'Password': user['Password'],
+                    'Password': decrypted_password,
                     'Password_Domain': user['Password_Domain'],
                     'Password_length': user['Password_length']
                 }

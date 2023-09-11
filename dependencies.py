@@ -6,7 +6,13 @@ from deta import Deta
 import re 
 import pandas as pd
 import random
-
+from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
+#!password_bytes = password.encode('utf-8')
+#!encrypted_password = cipher_suite.encrypt(password_bytes)
+#!decrypted_password_bytes = cipher_suite.decrypt(encrypted_password)
+#!decrypted_password = decrypted_password_bytes.decode('utf-8')
 DETA_KEY = st.secrets["db_user_tab_key"]
 DETA_PASS_KEY = st.secrets["db_password_tab_key"]
 
