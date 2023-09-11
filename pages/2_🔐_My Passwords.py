@@ -37,7 +37,7 @@ try :
         with open(file_path, 'rb') as file:
             # Load the data from the pickle file
             email = pickle.load(file)
-            print(f"Read email from pickle file: {email}")
+            #print(f"Read email from pickle file: {email}")
     except FileNotFoundError:
         print(f"Pickle file '{file_path}' not found.")
     except Exception as e:
@@ -54,7 +54,7 @@ try :
             if user['User_Email'] == email:
                 password=user['Password']
                 decoded_encrypted_password = base64.b64decode(password)
-                decrypted_password_bytes = cipher_suite.decrypt(decoded_encrypted_password)
+                decrypted_password_bytes = cipher_suite.decrypt(decoded_encrypted_password,ttl=3600)
                 decrypted_password = decrypted_password_bytes.decode('utf-8')
                 new_data = {
                     'Password_id': user['Password_id'],

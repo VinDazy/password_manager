@@ -99,7 +99,7 @@ login()
 
 def return_email():
     return global_email
-print("(home)email is :",return_email())
+#   print("(home)email is :",return_email())
 ###############################################
 
 
