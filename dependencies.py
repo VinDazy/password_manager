@@ -221,6 +221,13 @@ def display():
             st.subheader("Generated Passwords :")
             st.write(df)
     return data
+def delete_passowrd(password_id):
+    passwords=db_pass.fetch()
+    for password in passwords:
+        if password['Password_id']==password_id:
+            db_pass.delete(password_id)
+delete_passowrd('dd80cba5da')
+
 
 
     
