@@ -6,7 +6,7 @@ from dependencies import Fernet,key,delete_passowrd
 import base64
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
-st.title("User Passwords")
+st.title("Manage Passwords")
 
 st.markdown("""
 <style>
@@ -46,6 +46,8 @@ try :
     with st.sidebar:
         st.image('media/welcome.gif')
         st.success("Displaying Passwords",icon="✅")
+    st.write("User Email:", email)
+    delete_form=st.form(key="delete",clear_on_submit=True)
     def fetch_user_passwords(email):
         user_data_list = []
         users = db_pass.fetch()
@@ -54,7 +56,7 @@ try :
             if user['User_Email'] == email:
                 password=user['Password']
                 decoded_encrypted_password = base64.b64decode(password)
-                decrypted_password_bytes = cipher_suite.decrypt(decoded_encrypted_password,ttl=3600)
+                decrypted_password_bytes = cipher_suite.decrypt(decoded_encrypted_password,ttl=7200)
                 decrypted_password = decrypted_password_bytes.decode('utf-8')
                 new_data = {
                     'Password_id': user['Password_id'],
@@ -68,27 +70,32 @@ try :
         # Create a DataFrame from the list of user data dictionaries
         df = pd.DataFrame(user_data_list)
         
-        # Display the data in a Streamlit web app
-        st.write("User Email:", email)
+        return df
         
-        if not df.empty:
-            st.write(df)
+    df=fetch_user_passwords(email=email)
+    if not df.empty:
+        delete_form.write(df)
             
-        else:
-            st.write("No passwords found for this user.")
-
+    else:
+        delete_form.write("No passwords found for this user.")
+        delete_form.markdown("---")
+    
     fetch_user_passwords(email=email)
     st.markdown("---")
-    delete_form=st.form(key="delete")
+    
     pass_id=delete_form.text_input("Password ID")
+    submit=delete_form.form_submit_button("Delete Password")
     try :
-        submit=delete_form.form_submit_button("Delete Password")
         if submit:
-            delete_passowrd(password_id=pass_id)
+            if not pass_id :
+                raise ValueError("Valid Password ID is required")
+            else:
+                delete_passowrd(password_id=pass_id)
+                delete_form.success("Successfuly deleted Password")
     except Exception as e:
-        delete_form.write("An error occured")
-        with delete_form.expander:
-            delete_form.expander.write(e)
+        delete_form.error("An error occured")
+        expander=delete_form.expander("More info")
+        expander.write(e)
 
 
 except Exception as e :
