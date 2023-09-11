@@ -2,7 +2,7 @@ import streamlit as st
 from deta import Deta
 import pandas as pd 
 import pickle
-from dependencies import Fernet,key 
+from dependencies import Fernet,key,delete_passowrd
 import base64
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
@@ -78,6 +78,19 @@ try :
             st.write("No passwords found for this user.")
 
     fetch_user_passwords(email=email)
+    st.markdown("---")
+    delete_form=st.form(key="delete")
+    pass_id=delete_form.text_input("Password ID")
+    try :
+        submit=delete_form.form_submit_button("Delete Password")
+        if submit:
+            delete_passowrd(password_id=pass_id)
+    except Exception as e:
+        delete_form.write("An error occured")
+        with delete_form.expander:
+            delete_form.expander.write(e)
+
+
 except Exception as e :
     st.error("An error occured, Please try again Later",icon="🚨")
     st.write(e)

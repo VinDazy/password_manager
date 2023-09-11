@@ -1,3 +1,4 @@
 .env
 email.pickle
 cropyt.ipynb
+secrets.toml
