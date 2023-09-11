@@ -3,6 +3,7 @@ from deta import Deta
 import pandas as pd 
 import pickle
 from dependencies import *
+import base64
 
 st.set_page_config(page_title="Password Manager",layout="wide", page_icon="media/icon.png")
 st.title("User Passwords")
