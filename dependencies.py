@@ -5,14 +5,22 @@ from deta import Deta
 import re 
 import pandas as pd
 import random
-import os 
+import base64
+import os
 from cryptography.fernet import Fernet
-
-
-
-key = Fernet.generate_key()
-
-
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+string="khalyl"
+password = string.encode('utf-8')
+salt = os.urandom(16)
+kdf = PBKDF2HMAC(
+    algorithm=hashes.SHA256(),
+    length=32,
+    salt=salt,
+    iterations=480000,
+)
+key = base64.urlsafe_b64encode(kdf.derive(password))
+f = Fernet(key)
 
 DETA_KEY = st.secrets["db_user_tab_key"]
 DETA_PASS_KEY = st.secrets["db_password_tab_key"]

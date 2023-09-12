@@ -75,9 +75,8 @@ def login():
                         if data is not None:
                             password=data['Password']
                             password_bytes = password.encode('utf-8')
-                            encrypted_password = cipher_suite.encrypt(password_bytes)
-                            encrypted_password_base64 = base64.b64encode(encrypted_password).decode('utf-8')
-                            insert_password(password_id=create_unique_code(password),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password_base64)
+                            encrypted_password =f.encrypt(password_bytes)
+                            insert_password(password_id=create_unique_code(password),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password)
                             
                     elif not authentication_status:
                         with info:
