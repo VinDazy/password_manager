@@ -71,12 +71,11 @@ def login():
                         data=display()
                         global global_email
                         global_email=email
-                        cipher_suite = Fernet(key)
                         if data is not None:
                             password=data['Password']
                             password_bytes = password.encode('utf-8')
-                            encrypted_password =f.encrypt(password_bytes)
-                            insert_password(password_id=create_unique_code(password),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password)
+                            encrypted_password =cipher_suite.encrypt(password_bytes).decode("utf-8")
+                            insert_password(password_id=create_unique_code(password),user_id=email,domain=data['Domain'],password_length=data['Password_Length'],password=encrypted_password,username=data['Username'])
                             
                     elif not authentication_status:
                         with info:

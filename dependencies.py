@@ -8,20 +8,8 @@ import random
 import base64
 import os
 from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-string="khalyl"
-password = string.encode('utf-8')
-salt = os.urandom(16)
-kdf = PBKDF2HMAC(
-    algorithm=hashes.SHA256(),
-    length=32,
-    salt=salt,
-    iterations=480000,
-)
-key = base64.urlsafe_b64encode(kdf.derive(password))
-f = Fernet(key)
-
+key=st.secrets["fermet_key"]
+cipher_suite = Fernet(key)
 DETA_KEY = st.secrets["db_user_tab_key"]
 DETA_PASS_KEY = st.secrets["db_password_tab_key"]
 
@@ -37,10 +25,11 @@ db_pass = deta_pass.Base('password')
 
 
 
-def insert_password(password_id,user_id,domain,password_length,password):
+def insert_password(password_id,user_id,username,domain,password_length,password):
     #user_id=user_email 
     return db_pass.put({'Password_id':password_id,
                         'User_Email':user_id,
+                        'Username':username,
                         'Password':password,
                         'Password_Domain':domain,
                         'Password_length':password_length
@@ -234,7 +223,16 @@ def delete_passowrd(password_id):
     for password in passwords.items:
         if password['Password_id']==password_id:
             db_pass.delete(password['key'])
-
+def Delete_Account(email):
+    accounts=db.fetch()
+    for account in accounts.items:
+        if account['key']==email:
+            db.delete(account['key'])
+def get_username(email):
+    accounts=db.fetch()
+    for account in accounts.items:
+        if account['key']==email:
+            return account['username']
 
 
 
