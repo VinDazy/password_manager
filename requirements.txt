@@ -1,6 +1,7 @@
-cryptography==41.0.3
+cryptography==42.0.8
 deta==1.2.0
 pandas==2.0.3
 streamlit==1.26.0
 streamlit_authenticator==0.2.2
 
+tornado>=6.4.1 # not directly required, pinned by Snyk to avoid a vulnerability
